@@ -1,0 +1,16 @@
+<nav class="navbar">
+  <!-- Logo Section -->
+   <!-- add logo later  -->
+
+  <!-- Hamburger Button (visible on mobile) -->
+  <button class="menu-toggle" (click)="toggle_menu()" aria-label="Toggle navigation">
+    ☰
+  </button>
+
+  <!-- Navigation Links -->
+  <div class="navbar-links {{isMenuOpen ? 'open' : ''}}">
+    <a href="/" class="nav-link">Home</a>
+    <a href="/" class="nav-link">Favourites</a>
+    <a href="/" class="nav-link">Create Reciept</a>
+  </div>
+</nav>

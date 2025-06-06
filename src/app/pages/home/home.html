@@ -1,1 +1,23 @@
-<p>home works!</p>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=favorite" />
+
+
+<div class = 'receipt_body'>
+<div class = "reciept_container">
+    <mat-list>
+        @for(receipt of reciepts; track receipt; let id = $index )
+        {
+            <mat-card class="card" appearance="outlined">
+                <mat-card-header class="card_header">
+                    <mat-card-title>{{receipt.name}}</mat-card-title>
+                </mat-card-header>
+
+                <img mat-card-xl-image [src] = "'/recipe_image/'+receipt.image+'.jpg'">
+                <mat-card-content>
+                    <p>{{receipt.description}}</p>
+                    <div class="heart" [ngClass]="receipt.favorite == true ? 'heart_favorite' : 'heart'" (click)="on_click(id)"></div>
+                </mat-card-content>
+            </mat-card>
+        }
+    </mat-list>
+</div>
+</div>
