@@ -3,12 +3,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #585b70;
+    background-color: #fdfaf4;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
+    border-bottom: 2px solid #e0c9a6;
   }
 
    .navbar-links {
+    z-index: 10;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,8 +22,8 @@
     text-decoration: none;
     font-size: 1.1rem;
     font-weight: 600;
-    font-family: 'Merriweather', Georgia, serif;
-    color: #cdd6f4;
+    font-family: 'Georgia', serif;
+    color: #2c2c2c;
     letter-spacing: 0.5px;
     position: relative;
     transition: color 0.3s ease;
@@ -34,12 +36,12 @@
     height: 2px;
     left: 0;
     bottom: -4px;
-    background-color: #cdd6f4;
+    background-color: #e0c9a6;
     transition: width 0.3s ease;
   }
 
   .nav-link:hover {
-    color: #000;
+    color: #8b4513;
   }
 
   .nav-link:hover::after {
@@ -52,7 +54,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: #2b2b2b;
+    color: #2c2c2c;
   }
 
   @media (max-width: 768px) {
@@ -65,7 +67,8 @@
       top: 100%;
       left: 0;
       right: 0;
-      background-color: #6c7086;
+      background-color: #fffefc;
+      border-bottom: 2px solid #e0c9a6;
       flex-direction: column;
       align-items: center;
       gap: 1.5rem;

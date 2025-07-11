@@ -1,25 +1,30 @@
-.receipt_body{
+.recipe_body{
     padding-left: 10%;
     padding-right: 10%;
+    background-color: #e8dcc6;
 }
 
-.reciept_container{
-background-color: #9399b2;
-padding: 10px;
-min-height: 90vh;
-}
+.recipe_container{
+  background-color:  #f5f0e8;
+  padding: 10px;
+  min-height: 90vh;
+  }
 
 mat-list{
     display: flex;
 }
 
 .card{
-    width: fit-content;
+    width: 274px;
+    align-items: center;
+
 }
 
 
+
+
 .card:hover{
-    background: #b7bdf8;
+    background: #e0c9a6;
 }
 
 .card_header{
@@ -40,7 +45,7 @@ p{
   -webkit-mask-box-image: var(--_m);
              mask-border: var(--_m);
   clip-path: polygon(-41% 0,50% 91%, 141% 0);
-  background: #8087a2;
+  background: #dfc0aa;
 }
 
 .heart_favorite {
@@ -50,5 +55,76 @@ p{
   -webkit-mask-box-image: var(--_m);
              mask-border: var(--_m);
   clip-path: polygon(-41% 0,50% 91%, 141% 0);
-  background: #d20f39;
+  background: #bd6c32;
 }
+
+.book {
+  width: 250px;
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+  background: #fffefc;
+  border-radius: 8px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  font-family: 'Georgia', serif;
+  position: relative;
+}
+
+/* Add the simulated spine */
+.book::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 20px;
+  background: linear-gradient(to right, #8b4513, #e0c9a6);
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: inset -2px 0 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.book-cover,
+.book-page {
+  position: relative;
+  z-index: 2; /* ensures they sit above the spine */
+}
+
+.book:hover {
+  z-index: 3;  
+  transform: scale(1.03);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+
+.book-cover {
+  background: linear-gradient(to bottom, #f5f0e8, #fffefc);
+  padding: 10px;
+  padding-left: 30px; /* Offset to avoid spine overlap */
+  border-bottom: 2px solid #e0c9a6;
+}
+
+.book-cover img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.book-page {
+  padding: 10px;
+  padding-left: 30px; /* Offset to avoid spine overlap */
+  background-color: #fffdf9;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.book-page p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #2c2c2c;
+}
+

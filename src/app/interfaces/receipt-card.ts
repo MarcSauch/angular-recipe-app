@@ -1,5 +1,5 @@
 export interface ReceiptCardInterface {
-    name: string,
+    title: string,
     image: string,
     description: string
     favorite : boolean 

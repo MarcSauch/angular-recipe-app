@@ -1,0 +1,19 @@
+<h1 mat-dialog-title>Add Step</h1>
+<div mat-dialog-content>
+  <form [formGroup]="step_from" id="step-form" (submit)="submit_form()">
+    <mat-form-field appearance="fill">
+      <mat-label>Step Description</mat-label>
+      <textarea matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="3"
+                cdkAutosizeMaxRows="5"
+                formControlName="body"
+                required></textarea>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close_popup()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" form="step-form" [disabled]="!step_from.valid">Add Step</button>
+</div>
