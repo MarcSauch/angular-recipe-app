@@ -22,11 +22,11 @@ import { RouterModule } from '@angular/router'; // <-- Add this import
   styleUrl: './recipe.scss'
 })
 export class Recipe {
-  recipe_title : string = ""
+  recipeId : number = -1;
 
   recipe : RecipeInterface =  {
     title : "",
-    image: "",
+    image_url: "",
     description: "",
     ingredients : [],
     method: [],
@@ -45,11 +45,21 @@ export class Recipe {
 
   
   ngOnInit() {
-    this.recipe_title = this.route.snapshot.paramMap.get('recipe_title')!;
-    console.log(this.recipe_title)
-    this.recipe = this.recipe_service.get_recipe(this.recipe_title)!
-    console.log(this.recipe)
-    this.titleService.setTitle(this.recipe.title);
-  }
+    this.recipeId = Number(this.route.snapshot.paramMap.get('recipe_id'));
+    console.log(this.recipeId)
+    this.recipe_service.get_recipe(this.recipeId).subscribe({
+      next: (recipe) => {
+        this.recipe = recipe;
+        this.recipe.method.sort((a, b) => a.step_number - b.step_number);
+
+        console.log("Recipe fetched successfully:", recipe);
+        this.titleService.setTitle(this.recipe.title);
+      }, 
+      error: (err) => {
+        console.error("Error fetching recipe:", err);
+      }
+    });
+
+      }
 
 }

@@ -1,6 +1,8 @@
 export interface ReceiptCardInterface {
+    id: number,
     title: string,
-    image: string,
-    description: string
+    imageUrl: string,
+    description: string,
     favorite : boolean 
 }
+    

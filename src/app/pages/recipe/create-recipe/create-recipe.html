@@ -13,7 +13,7 @@
           @for (ingredient of this.recipe.ingredients; track ingredient;let idx = $index;)
           {
             <div class="ingredient-contrainer">
-                <mat-list-item role="listitem">• {{ingredient.amount}} {{ingredient.unit}} {{ingredient.name}}</mat-list-item>
+                <mat-list-item role="listitem">• {{ingredient.quantity}} {{ingredient.unit}} {{ingredient.name}}</mat-list-item>
                 <button type="button" class="delete-button" (click)="remove_ingredient(idx)">
                   <mat-icon class = "delete-icon" >delete</mat-icon>
                 </button>
@@ -31,7 +31,7 @@
           @for (step of this.recipe.method; track step;let idx = $index;)
           {
             <div class="method-step-container">
-                <mat-list-item  role="listitem">{{idx +1}}. {{ step.body }}</mat-list-item>
+                <mat-list-item  role="listitem">{{idx +1}}. {{ step.step }}</mat-list-item>
                 <button type="button" class="delete-button" (click)="remove_step(idx)">
                   <mat-icon class = "delete-icon" >delete</mat-icon>
                 </button>
@@ -53,8 +53,8 @@
             }
          
         </div>
-        @if( this.recipe.image) {
-          <img [src]="this.recipe.image" class="recipe-img" alt="{{ this.recipe.title }}" (click)="fileInput.click()">
+        @if( this.recipe.image_url) {
+          <img [src]="get_image_url()" class="recipe-img" alt="{{ this.recipe.title }}" (click)="fileInput.click()">
           <input #fileInput type="file" style="display: none;" class="file-upload" (change)="upload_file($event)" accept="image/*" />
         } @else {
           <input type="file" class="file-upload" (change)="upload_file($event)" accept="image/*" />
@@ -77,9 +77,15 @@
         
         <!-- Submit Button -->
         <div class="submit-container">
-          <button type="submit"  class="submit-button">
-            Save Recipe
-          </button>
+          @if (this.recipe_id) {
+            <button type="submit" class="submit-button">
+              Update Recipe
+            </button>
+          } @else {
+            <button type="submit" class="submit-button">
+              Create Recipe
+            </button>
+          }
         </div>
       </div>
     </div>

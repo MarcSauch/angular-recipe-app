@@ -81,6 +81,14 @@ mat-list-item {
     /* color: lightgreen; */
     background-color: #BFFFD1;
     top: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-button:hover {
+  background-color: #7FFF9F;
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(191, 255, 209, 0.4);
 }
 
 .add-icon{

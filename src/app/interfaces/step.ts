@@ -1,3 +1,4 @@
 export interface Step {
-    body: string
+    step: string,
+    step_number: number
 }

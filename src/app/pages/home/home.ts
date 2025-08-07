@@ -20,11 +20,18 @@ export class Home {
   
   constructor(private recipe_service : RecipeService , private router : Router){
     // recieves data from api
-    let data = recipe_service.get_recipe_card()
-    // sorts data based on if they favorite the item
-    data.sort((a, b) => Number(b.favorite) - Number(a.favorite));
-    // save the list to be rendered by the front end
-    this.recipes = data
+    recipe_service.get_recipe_card().subscribe({
+      next: (data) => {
+        console.log("Recipes fetched successfully:", data);
+        this.recipes = data;
+        // Sort the recipes by favorite status
+        this.recipes.sort((a, b) => Number(b.favorite) - Number(a.favorite));
+      },
+      error: (err) => { 
+        console.error("Error fetching recipes:", err);
+      } 
+    });
+
   }
 
   on_click(index: number,event :MouseEvent)
@@ -33,22 +40,27 @@ export class Home {
     event.stopPropagation()
 
     // If the recipe is already favored, updated it to false else true then re-sort
-    if(this.recipes[index].favorite == true)
-    {
-      this.recipes[index].favorite = !this.recipes[index].favorite
-      this.recipes.sort((a, b) => Number(b.favorite) - Number(a.favorite));
-    }
-    else{
-      this.recipes[index].favorite = !this.recipes[index].favorite
-      this.recipes.unshift(this.recipes.splice(index, 1)[0]);
-    }
+    console.log("Clicked on recipe at index:", index);
+    const recipe = this.recipes[index];
+    const newFavoriteStatus = !recipe.favorite;
+    this.recipe_service.update_recipe_favorite(recipe.id, newFavoriteStatus).subscribe({
+      next: () => {
+        console.log(`Recipe ${recipe.id} favorite status updated to:`, newFavoriteStatus);
+        recipe.favorite = newFavoriteStatus;
+        // // Re-sort the recipes after updating the favorite status
+        this.recipes.sort((a, b) => Number(b.favorite) - Number(a.favorite));
+      }, 
+      error: (err) => {
+        console.error(`Error updating favorite status for recipe ${recipe.id}:`, err);
+      }
+    });
   
   }
 
-  nav_recipe(title : string)
+  nav_recipe(recipeId : number)
   {
     // Navigate the user to the recipe page
-    this.router.navigate(['/recipes/', title],);
+    this.router.navigate(['/recipes/', recipeId]);
   }
 
 }

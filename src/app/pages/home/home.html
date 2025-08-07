@@ -7,12 +7,12 @@
         @for(recipe of recipes; track recipe; let id = $index )
         {
           
-            <mat-card class="card book" appearance="outlined" (click)="nav_recipe(recipe.title)">
+            <mat-card class="card book" appearance="outlined" (click)="nav_recipe(recipe.id)">
             <div class="book-cover">
                 <mat-card-header class="card_header">
                 <mat-card-title>{{recipe.title}}</mat-card-title>
                 </mat-card-header>
-                <img mat-card-xl-image [src]="'/recipe_image/' + recipe.image + '.jpg'">
+                <img mat-card-xl-image [src]="'/recipe_image/' + recipe.imageUrl + '.jpg'">
             </div>
             <div class="book-page">
                 <mat-card-content>

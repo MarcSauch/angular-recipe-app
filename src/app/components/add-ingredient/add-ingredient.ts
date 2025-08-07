@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { Ingredient } from '../../interfaces/ingredient';
+import { IngredientDTO } from '../../interfaces/ingredient';
 import { FormControl, FormGroup, FormsModule, Validators }   from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -18,7 +18,26 @@ import { MatButtonModule } from '@angular/material/button';
 export class AddIngredient {
   name = new FormControl('');
 
-  units : Array<string> = ['kg','cups','tbsp','tsp','']
+  units : Array<string> = ["grams",
+  "kilograms",
+  "milliliters",
+  "liters",
+  "teaspoons",
+  "tablespoons",
+  "cups",
+  "ounces",
+  "pounds",
+  "pieces",
+  "pinches",
+  "bunches",
+  "slices",
+  "cloves",
+  "stalks",
+  "sprigs",
+  "heads",
+  "cans",
+  "jars",
+  "",]
    ingredient_form = new FormGroup({
     name: new FormControl('', [Validators.required]),
     amount: new FormControl(null, [Validators.required, Validators.min(0.00001)]),

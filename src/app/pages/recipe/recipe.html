@@ -8,14 +8,14 @@
         <mat-list role="list">
           @for (ingredient of this.recipe.ingredients; track ingredient;)
           {
-            <mat-list-item role="listitem">• {{ingredient.amount}} {{ingredient.unit}} {{ingredient.name}}</mat-list-item>
+            <mat-list-item role="listitem">• {{ingredient.quantity}} {{ingredient.unit}} {{ingredient.name}}</mat-list-item>
           }
         </mat-list>
         <div class="method">
           <h2>Method</h2>
           @for (step of this.recipe.method; track step;let idx = $index;)
           {
-            <p class="method-step">{{idx+1}} {{ step.body }}</p>
+            <p class="method-step">{{idx+1}} {{ step.step }}</p>
           }
         </div>
       </div>
@@ -24,7 +24,7 @@
       <div class="right-page">
          <h1 class="recipe-title ">{{ this.recipe.title }}</h1>
         
-        <img [src]="'recipe_image/' + this.recipe.image + '.jpg'" class="recipe-img" alt="{{ this.recipe.title }}">
+        <img [src]="'recipe_image/' + this.recipe.image_url + '.jpg'" class="recipe-img" alt="{{ this.recipe.title }}">
         <p class="recipe-description">{{ this.recipe.description }}</p>
         <button [routerLink]="['/edit-recipe',recipe.id]">
           Edit Recipe
