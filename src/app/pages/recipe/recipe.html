@@ -1,0 +1,37 @@
+
+<div class="receipt_body">
+  <div class="reciept_container">    
+    <div class="book-spread">
+      <!-- Left Page: Ingredients -->
+      <div class="left-page">
+        <h2>Ingredients</h2>
+        <mat-list role="list">
+          @for (ingredient of this.recipe.ingredients; track ingredient;)
+          {
+            <mat-list-item role="listitem">• {{ingredient.amount}} {{ingredient.unit}} {{ingredient.name}}</mat-list-item>
+          }
+        </mat-list>
+        <div class="method">
+          <h2>Method</h2>
+          @for (step of this.recipe.method; track step;let idx = $index;)
+          {
+            <p class="method-step">{{idx+1}} {{ step.body }}</p>
+          }
+        </div>
+      </div>
+
+      <!-- Right Page: Image + Description + Method -->
+      <div class="right-page">
+         <h1 class="recipe-title ">{{ this.recipe.title }}</h1>
+        
+        <img [src]="'recipe_image/' + this.recipe.image + '.jpg'" class="recipe-img" alt="{{ this.recipe.title }}">
+        <p class="recipe-description">{{ this.recipe.description }}</p>
+        <button [routerLink]="['/edit-recipe',recipe.id]">
+          Edit Recipe
+          <mat-icon class="edit-icon" aria-hidden="false" aria-label="Example home icon" fontIcon="edit"></mat-icon>
+        </button>
+        
+      </div>
+    </div>
+  </div>
+</div>

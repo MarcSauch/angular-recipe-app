@@ -1,0 +1,69 @@
+:host {
+  display: block;
+  background-color: #fdfaf6;
+  padding: 24px;
+  border-radius: 8px;
+  font-family: 'Georgia', serif;
+}
+
+h1[mat-dialog-title] {
+  color: #4a2c2a;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+[mat-dialog-content] {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.mat-mdc-form-field .mdc-text-field--filled {
+  background-color: #f8f4ef;
+}
+
+.mat-mdc-form-field .mdc-text-field--filled:focus-within {
+  background-color: #fefdfb;
+}
+
+.mat-mdc-select-arrow {
+  color: #4a2c2a;
+}
+
+[mat-dialog-actions] {
+  justify-content: flex-end;
+  padding-top: 24px;
+  gap: 10px;
+}
+
+button[mat-button] {
+  color: #8d6e63;
+  font-weight: 600;
+}
+
+button[mat-raised-button].mat-primary {
+  background-color: #8d6e63;
+  color: #ffffff;
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+button[mat-raised-button].mat-primary:hover {
+  background-color: #795548;
+}
+
+button[mat-raised-button][disabled] {
+  background-color: #d7ccc8;
+  color: #a1887f;
+}
+
+form{
+    display: contents;
+}

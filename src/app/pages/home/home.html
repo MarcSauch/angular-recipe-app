@@ -1,23 +1,30 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=favorite" />
 
 
-<div class = 'receipt_body'>
-<div class = "reciept_container">
+<div class = 'recipe_body'>
+<div class = "recipe_container">
     <mat-list>
-        @for(receipt of reciepts; track receipt; let id = $index )
+        @for(recipe of recipes; track recipe; let id = $index )
         {
-            <mat-card class="card" appearance="outlined">
+          
+            <mat-card class="card book" appearance="outlined" (click)="nav_recipe(recipe.title)">
+            <div class="book-cover">
                 <mat-card-header class="card_header">
-                    <mat-card-title>{{receipt.name}}</mat-card-title>
+                <mat-card-title>{{recipe.title}}</mat-card-title>
                 </mat-card-header>
-
-                <img mat-card-xl-image [src] = "'/recipe_image/'+receipt.image+'.jpg'">
+                <img mat-card-xl-image [src]="'/recipe_image/' + recipe.image + '.jpg'">
+            </div>
+            <div class="book-page">
                 <mat-card-content>
-                    <p>{{receipt.description}}</p>
-                    <div class="heart" [ngClass]="receipt.favorite == true ? 'heart_favorite' : 'heart'" (click)="on_click(id)"></div>
+                <p>{{recipe.description}}</p>
+                <div class="heart" [ngClass]="recipe.favorite ? 'heart_favorite' : 'heart'" (click)="on_click(id, $event)"></div>
                 </mat-card-content>
+            </div>
             </mat-card>
+
         }
     </mat-list>
 </div>
 </div>
+
+

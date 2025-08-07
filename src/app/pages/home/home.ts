@@ -1,40 +1,54 @@
 import { Component } from '@angular/core';
 import { MatList, MatListItem } from '@angular/material/list';
-import { ReceiptCard } from '../../services/receipt-card';
 import { ReceiptCardInterface } from '../../interfaces/receipt-card';
 import {MatCardModule} from '@angular/material/card';
 import { MatCard, MatCardContent, MatCardHeader, MatCardImage, MatCardTitle } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { RecipeService } from '../../services/recipe-service';
+import { Route, Router } from '@angular/router';
 
 
 @Component({
   selector: 'app-home',
-  imports: [MatCardModule,MatList,MatCardImage,CommonModule,],
+  imports: [MatCardModule,MatList,CommonModule,],
   templateUrl: './home.html',
   styleUrl: './home.scss'
 })
 export class Home {
-  reciepts : Array<ReceiptCardInterface> = []
-  constructor(private reciept_service : ReceiptCard){
+  recipes : Array<ReceiptCardInterface> = []
+
+  
+  constructor(private recipe_service : RecipeService , private router : Router){
     // recieves data from api
-    let data = reciept_service.get_data()
-    // sorts data based on if they favorited the item
+    let data = recipe_service.get_recipe_card()
+    // sorts data based on if they favorite the item
     data.sort((a, b) => Number(b.favorite) - Number(a.favorite));
     // save the list to be rendered by the front end
-    this.reciepts = reciept_service.get_data()
+    this.recipes = data
   }
 
-  on_click(index: number)
+  on_click(index: number,event :MouseEvent)
   {
-    if(this.reciepts[index].favorite == true)
+    // stops any other event from triggering (Event Bubbling)
+    event.stopPropagation()
+
+    // If the recipe is already favored, updated it to false else true then re-sort
+    if(this.recipes[index].favorite == true)
     {
-      this.reciepts[index].favorite = !this.reciepts[index].favorite
-      this.reciepts.sort((a, b) => Number(b.favorite) - Number(a.favorite));
+      this.recipes[index].favorite = !this.recipes[index].favorite
+      this.recipes.sort((a, b) => Number(b.favorite) - Number(a.favorite));
     }
     else{
-      this.reciepts[index].favorite = !this.reciepts[index].favorite
-      this.reciepts.unshift(this.reciepts.splice(index, 1)[0]);
+      this.recipes[index].favorite = !this.recipes[index].favorite
+      this.recipes.unshift(this.recipes.splice(index, 1)[0]);
     }
   
   }
+
+  nav_recipe(title : string)
+  {
+    // Navigate the user to the recipe page
+    this.router.navigate(['/recipes/', title],);
+  }
+
 }

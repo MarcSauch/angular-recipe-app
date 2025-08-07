@@ -1,0 +1,27 @@
+<h1 mat-dialog-title>Add Ingredient</h1>
+<div mat-dialog-content>
+  <form [formGroup]="ingredient_form" id="ingredient-form" (submit)="submit_form()">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Amount</mat-label>
+      <input matInput type="number" formControlName="amount" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Unit</mat-label>
+      <mat-select formControlName="unit">
+        @for (item of units; track item) {
+        <mat-option value="{{item}}">{{item}}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close_popup()">Cancel</button>
+  <button mat-raised-button color="primary" type="submit" form="ingredient-form" [disabled]="!ingredient_form.valid">Add</button>
+</div>
