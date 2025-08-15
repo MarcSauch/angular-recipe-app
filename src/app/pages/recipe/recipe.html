@@ -23,8 +23,8 @@
       <!-- Right Page: Image + Description + Method -->
       <div class="right-page">
          <h1 class="recipe-title ">{{ this.recipe.title }}</h1>
-        
-        <img [src]="'recipe_image/' + this.recipe.image_url + '.jpg'" class="recipe-img" alt="{{ this.recipe.title }}">
+
+        <img [src]="'http://localhost:8010/api/recipes/image/' + recipe.image_url" alt="{{recipe.title}}" class="recipe-img">
         <p class="recipe-description">{{ this.recipe.description }}</p>
         <button [routerLink]="['/edit-recipe',recipe.id]">
           Edit Recipe

@@ -18,10 +18,13 @@ import { IngredientService } from '../../../services/ingredient-service';
 import { MethodService } from '../../../services/method-service';
 import { UpdateRecipeDTO } from '../../../interfaces/recipe-interface';
 import { CreateIngredientDTO, IngredientDTO } from '../../../interfaces/ingredient';
+import { CdkDragDrop, DragDropModule } from '@angular/cdk/drag-drop';
+import { Step } from '../../../interfaces/step';
+import { UpdateMethodDTO } from '../../../interfaces/method';
 
 @Component({
   selector: 'app-create-recipe',
-  imports: [MatFormFieldModule, MatInputModule, MatSelectModule,MatIcon ,MatListModule, ReactiveFormsModule, MatButtonModule],
+  imports: [MatFormFieldModule, MatInputModule, MatSelectModule,MatIcon ,MatListModule, ReactiveFormsModule, MatButtonModule, DragDropModule],
   templateUrl: './create-recipe.html',
   styleUrl: './create-recipe.scss'
 })
@@ -69,14 +72,72 @@ export class CreateRecipe {
     };
   }
 
+  get methodArray(): Step[] {
+    const methodArray: Step[] = this.recipeForm.get('method')?.value || [];
+    methodArray.sort((a, b) => a.step_number - b.step_number);
+    return methodArray;
+  }
+
+
   get_image_url(): string {
     const imageUrl = this.recipeForm.get('image_url')?.value || '';
     if (imageUrl && imageUrl.startsWith('data:image/')) {
       return imageUrl; // Return the base64 image URL
     }
     else{
-      return `/recipe_image/${imageUrl}.jpg`; // Return the URL for the image
+      return 'http://localhost:8010/api/recipes/image/' + imageUrl;
     }
+  }
+
+
+  // [1,2,3,4] = [2,3,1,4]
+  drop(event: CdkDragDrop<any[]>)
+  {
+    if(event.previousIndex == event.currentIndex)
+    {
+      return;
+    }
+
+    console.log('Drop event:', event);
+    console.log('recipe:', this.recipe);
+
+    const currentIndex = event.previousIndex;
+    const newIndex = event.currentIndex;
+    
+    // Update the recipe method order
+    const updatedMethod = [...this.recipe.method];
+    updatedMethod[currentIndex].step_number = newIndex;
+    if(newIndex < currentIndex)
+    {
+      for( let i = currentIndex - 1 ; i >= newIndex; i--)
+      {
+        updatedMethod[i].step_number = i + 1;
+      }
+    }
+    else{
+      for( let i = currentIndex + 1 ; i <= newIndex; i++)
+        {
+          updatedMethod[i].step_number = i - 1;
+        }
+    }
+    if(this.recipe_id !== null && this.recipe_id !== undefined) {
+       this.method_service.update_multiple_steps(updatedMethod as UpdateMethodDTO[]).subscribe({
+      next: (response) => {
+        console.log('Method steps updated successfully:', response);
+        // Update the local method array to reflect the new order
+        this.recipeForm.get('method')?.setValue(updatedMethod);
+      },
+      error: (error) => {
+        console.error('Error updating method steps:', error);
+      }
+    });
+    }
+    else{
+      // the recipe is not yet created, so we just update the form
+      this.recipeForm.get('method')?.setValue(updatedMethod);
+    }
+
+   
   }
 
   on_change(event : KeyboardEvent)
@@ -292,7 +353,7 @@ export class CreateRecipe {
 
       }
       else{
-          this.recipe_service.create_recipe(this.recipe).subscribe({
+        this.recipe_service.create_recipe(this.recipe).subscribe({
         next: (response) => { 
           console.log('Recipe created successfully:', response)
           this.router.navigate(['/recipes', response.id])

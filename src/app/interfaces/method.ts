@@ -13,3 +13,10 @@ export interface CreateMethodDTO extends Omit<MethodDTO, "step_id"> {
     step: string;
     step_number: number;
 }
+
+export interface UpdateMethodDTO extends Partial<MethodDTO> {
+    id: number;
+    step?: string;
+    step_number?: number;
+}
+

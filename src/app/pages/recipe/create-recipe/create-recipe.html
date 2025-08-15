@@ -27,14 +27,16 @@
               
 
             </div>
-            <mat-list role="list">
-          @for (step of this.recipe.method; track step;let idx = $index;)
+            <mat-list role="list" cdkDropList (cdkDropListDropped)="drop($event)">
+          @for (step of this.methodArray; track step;let idx = $index;)
           {
-            <div class="method-step-container">
+            <div class="method-step-container" cdkDrag>
+                
                 <mat-list-item  role="listitem">{{idx +1}}. {{ step.step }}</mat-list-item>
                 <button type="button" class="delete-button" (click)="remove_step(idx)">
                   <mat-icon class = "delete-icon" >delete</mat-icon>
                 </button>
+                <mat-icon class = "drag-icon" cdkDragHandle aria-hidden="false" aria-label="Example home icon" fontIcon="menu"></mat-icon>
             </div>
           }
           </mat-list>
@@ -54,7 +56,7 @@
          
         </div>
         @if( this.recipe.image_url) {
-          <img [src]="get_image_url()" class="recipe-img" alt="{{ this.recipe.title }}" (click)="fileInput.click()">
+          <img cdkDrag [src]="get_image_url()" class="recipe-img" alt="{{ this.recipe.title }}" (click)="fileInput.click()">
           <input #fileInput type="file" style="display: none;" class="file-upload" (change)="upload_file($event)" accept="image/*" />
         } @else {
           <input type="file" class="file-upload" (change)="upload_file($event)" accept="image/*" />

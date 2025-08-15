@@ -122,16 +122,16 @@ export class RecipeService {
 
     create_recipe(receipt: RecipeInterface): Observable<any>
   {
-    console.log('Creating recipe:', receipt);
     const tmp = {
       title: receipt.title,
-      image_url: '',
+      image_url: receipt.image_url,
       description: receipt.description,
       ingredients: receipt.ingredients,
       method: receipt.method,
       favorite: receipt.favorite
     }
     const url: string = this.base_url + "/create-recipe";
+    console.log("sending recipe off", tmp)
     return this.http.post(url, tmp)
     // this.recipes.push(receipt);
     // console.log('Recipe created:', receipt);

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MethodDTO, CreateMethodDTO } from '../interfaces/method';
+import { MethodDTO, CreateMethodDTO , UpdateMethodDTO} from '../interfaces/method';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +22,11 @@ export class MethodService {
   delete_step(step_id: number): Observable<any> {
     const url: string = `${this.base_url}/method/${step_id}`;
     return this.http.delete(url);
+  }
+
+  update_multiple_steps(steps: UpdateMethodDTO[]): Observable<any> {
+    const url: string = `${this.base_url}/update-methods`;
+    return this.http.post(url, { methods: steps });
   }
 
 }
